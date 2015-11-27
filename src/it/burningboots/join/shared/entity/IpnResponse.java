@@ -1,12 +1,15 @@
 package it.burningboots.join.shared.entity;
 
+import java.io.Serializable;
+
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
-public class IpnResponse extends Entity {
+public class IpnResponse extends Entity implements Serializable {
+	private static final long serialVersionUID = 6665621291812512821L;
 	
 	@PrimaryKey
 	private String key;
@@ -30,6 +33,8 @@ public class IpnResponse extends Entity {
 	@Persistent
 	private Participant participant;
 	
+	public IpnResponse() {
+	}
 	
 	public IpnResponse(String key, String itemNumber, String paymentStatus, String payerEmail,
 			String mcGross, String mcCurrency, String paymentDate,

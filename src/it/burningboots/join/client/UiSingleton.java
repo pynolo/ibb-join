@@ -57,7 +57,7 @@ public class UiSingleton implements ValueChangeHandler<String> {
 
 	private void initHistorySupport() {
 		// add the MainPanel as a history listener
-		History.addValueChangeHandler(this);//addHistoryListener(this);
+		History.addValueChangeHandler(this);
 		// check to see if there are any tokens passed at startup via the browser's URI
 		String token = History.getToken();
 		if (token.length() == 0) {

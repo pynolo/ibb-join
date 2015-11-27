@@ -1,5 +1,6 @@
 package it.burningboots.join.shared.entity;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
@@ -9,8 +10,9 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
-public class Participant extends Entity {
-
+public class Participant extends Entity implements Serializable {
+	private static final long serialVersionUID = -7816100274638131540L;
+	
 	@PrimaryKey
 	private String key = "";
 	@Persistent

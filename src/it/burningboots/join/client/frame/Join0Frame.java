@@ -97,6 +97,7 @@ public class Join0Frame extends FramePanel implements IWizardPanel {
 	//Async methods
 	
 	private void loadAsyncData() {
+		GWT.debugger();
 		AsyncCallback<List<Participant>> callback = new AsyncCallback<List<Participant>>() {
 			@Override
 			public void onFailure(Throwable caught) {

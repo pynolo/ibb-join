@@ -33,3 +33,4 @@ compiled/
 #netbeans project folder
 nbproject
 
+/test-classes/

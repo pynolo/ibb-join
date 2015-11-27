@@ -1,13 +1,19 @@
 package it.burningboots.join.shared;
 
-public class PropertyBean {
+import java.io.Serializable;
 
+public class PropertyBean implements Serializable {
+	private static final long serialVersionUID = 5717993261825827825L;
+	
 	private String version = null;
 	private boolean closed = true;
 	private int bedAvailableFrom = -1;
 	private int bedAvailableUntil = -1;
 	private int tentAvailableFrom = -1;
 	private int tentAvailableUntil = -1;
+	
+	public PropertyBean() {
+	}
 	
 	public String getVersion() {
 		return version;

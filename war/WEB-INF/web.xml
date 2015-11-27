@@ -18,7 +18,7 @@
 	</servlet>
 	<servlet>
 		<servlet-name>dataServiceImpl</servlet-name>
-		<servlet-class>it.burningboots.join.server.service.DataServiceImpl</servlet-class>
+		<servlet-class>it.burningboots.join.server.servlet.DataServiceImpl</servlet-class>
 	</servlet>
 	
 	<!-- Servlet mappings -->
