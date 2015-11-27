@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+			http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+		version="2.5"
+		xmlns="http://java.sun.com/xml/ns/javaee">
+
+	<!-- Filters -->
+	<filter>
+		<filter-name>gwtCacheControlFilter</filter-name>
+		<filter-class>it.burningboots.join.server.servlet.GWTCacheControlFilter</filter-class>
+	</filter>
+	
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>ipnServlet</servlet-name>
+		<servlet-class>it.burningboots.join.server.servlet.IpnServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>dataServiceImpl</servlet-name>
+		<servlet-class>it.burningboots.join.server.service.DataServiceImpl</servlet-class>
+	</servlet>
+	
+	<!-- Servlet mappings -->
+	<servlet-mapping>
+		<servlet-name>ipnServlet</servlet-name>
+		<url-pattern>/ipn</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>dataServiceImpl</servlet-name>
+		<url-pattern>/join/dataService</url-pattern>
+	</servlet-mapping>
+	
+  
+	<!-- Default page to serve -->
+	<welcome-file-list>
+	  <welcome-file>Join.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>

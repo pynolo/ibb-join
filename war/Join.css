@@ -1,0 +1,46 @@
+/** Add css rules here for your application. */
+@font-face {font-family: 'Averia'; font-weight: bold; font-style: normal; src: url('../fonts/averia/Averia-Bold.ttf') format('truetype');}
+@font-face {font-family: 'Averia'; font-weight: bold; font-style: italic; src: url('../fonts/averia/Averia-BoldItalic.ttf') format('truetype');}
+@font-face {font-family: 'Averia'; font-weight: normal; font-style: italic; src: url('../fonts/averia/Averia-Italic.ttf') format('truetype');}
+@font-face {font-family: 'Averia'; font-weight: normal; font-style: normal; src: url('../fonts/averia/Averia-Regular.ttf') format('truetype');}
+@font-face {font-family: 'Andika'; font-weight: normal; font-style: normal; src: url('../fonts/andika/AndBasR.ttf') format('truetype');}
+
+#wrap {
+	width: 100%; 
+	margin: 0 auto;
+}
+section {
+	margin: 0px 0px;
+	font-family: 'Andika',tahoma,'Lucida Sans',sans;
+}
+.section-content-wrapper {
+    padding: 0px 0px;
+}
+h1 {
+	font-family: 'Averia',tahoma,'Lucida Sans',sans;
+	font-size: 2.2em;
+	margin-top: 0.7em;
+	margin-bottom: 1em;
+}
+h2 {
+	font-family: 'Averia',tahoma,'Lucida Sans',sans;
+	font-size: 1.8em;
+	margin-top: 1.1em;
+	margin-bottom: 0.7em;
+}
+a, .purple {
+    color: #AE0B74;
+}
+a:hover, .main-region a:focus {
+    color: #AE0B74;
+    text-decoration: underline;
+}
+ul.list-icons {
+	list-style: outside none none;
+}
+.text-warning {
+	color: orange;
+}
+.text-warning {
+	color: red;
+}
