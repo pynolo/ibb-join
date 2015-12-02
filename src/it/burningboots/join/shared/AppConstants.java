@@ -26,21 +26,7 @@ public class AppConstants {
 	public static final String TESTING_PROPERTY_FILE = "/testing.properties";
 	
 	// PARAMS
-	public static final String PARAMS_SERVICE_OPEN = "serviceOpen";
-	public static final String PARAMS_STEP = "step";
-	public static final String PARAMS_CODE = "code";
-	public static final String PARAMS_EMAIL = "email";
-	public static final String PARAMS_NAME = "name";
-	public static final String PARAMS_COUNTRY = "country";
-	public static final String PARAMS_FOOD = "food";
-	public static final String PARAMS_ARRIVAL_TIME = "arrivalTime";
-	public static final String PARAMS_VOLUNTEER = "volunteer";
-	public static final String PARAMS_AMOUNT = "amount";
-	public static final String PARAMS_PAYMENT = "payment";
-	public static final String PARAMS_WIZARD_MODE = "wizardMode";
-	public static final String PARAMS_RESALE_TYPE = "resaleType";
-	public static final String PARAMS_MESSAGE = "message";
-	public static final String PARAMS_EXPDATE = "expDate";
+	public static final String PARAMS_ID = "id";
 	
 	
 	//PARAM VALUES

@@ -8,11 +8,11 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
-public class IpnResponse extends Entity implements Serializable {
+public class IpnResponse implements Serializable {
 	private static final long serialVersionUID = 6665621291812512821L;
 	
 	@PrimaryKey
-	private String key;
+	private String idKey;
 	@Persistent
 	private String itemNumber;
 	@Persistent
@@ -31,15 +31,20 @@ public class IpnResponse extends Entity implements Serializable {
 	private String paymentType;
 	
 	@Persistent
-	private Participant participant;
+	private boolean participantFound = false;
+	
 	
 	public IpnResponse() {
 	}
 	
-	public IpnResponse(String key, String itemNumber, String paymentStatus, String payerEmail,
+	public IpnResponse(String idKey) {
+		this.idKey = idKey;
+	}
+	
+	public IpnResponse(String idKey, String itemNumber, String paymentStatus, String payerEmail,
 			String mcGross, String mcCurrency, String paymentDate,
 			String pendingReason, String paymentType) {
-		this.key = key;
+		this.idKey = idKey;
 		this.itemNumber = itemNumber;
 		this.paymentStatus = paymentStatus;
 		this.payerEmail = payerEmail;
@@ -50,11 +55,10 @@ public class IpnResponse extends Entity implements Serializable {
 		this.paymentType = paymentType;
 	}
 	
-	@Override
-	public String getKey() {
-		return key;
+	public String getIdKey() {
+		return idKey;
 	}
-
+	
 	public String getItemNumber() {
 		return itemNumber;
 	}
@@ -117,6 +121,14 @@ public class IpnResponse extends Entity implements Serializable {
 
 	public void setPaymentType(String paymentType) {
 		this.paymentType = paymentType;
+	}
+
+	public boolean getParticipantFound() {
+		return participantFound;
+	}
+
+	public void setParticipantFound(boolean participantFound) {
+		this.participantFound = participantFound;
 	}
 	
 }

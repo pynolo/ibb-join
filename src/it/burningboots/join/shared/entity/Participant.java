@@ -1,7 +1,7 @@
 package it.burningboots.join.shared.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.jdo.annotations.IdentityType;
@@ -10,13 +10,11 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
-public class Participant extends Entity implements Serializable {
+public class Participant implements Serializable {
 	private static final long serialVersionUID = -7816100274638131540L;
 	
 	@PrimaryKey
-	private String key = "";
-	@Persistent
-	private String itemNumber = "";//Codice personale
+	private String itemNumberKey = "";//Codice personale
 	@Persistent
 	private String email = "";
 	@Persistent
@@ -39,17 +37,21 @@ public class Participant extends Entity implements Serializable {
 	private Date paymentDt = null;
 	
 	@Persistent(defaultFetchGroup = "true")
-	private Collection<IpnResponse> ipnResponses;
+	private ArrayList<IpnResponse> ipnResponses;
 	
-	public Participant() {}
 	
-	public Participant(String key, String itemNumber, String email,
+	public Participant() {
+	}
+	
+	public Participant(String itemNumberKey) {
+		this.itemNumberKey = itemNumberKey;
+	}
+	
+	public Participant(String itemNumberKey, String email,
 			String firstName, String lastName, Date created,
 			String arrivalTime, String countryName, String foodRestrictions,
-			String volunteering, Double amount, Date paymentDt,
-			Collection<IpnResponse> ipnResponses) {
-		this.key = key;
-		this.itemNumber = itemNumber;
+			String volunteering, Double amount, Date paymentDt) {
+		this.itemNumberKey = itemNumberKey;
 		this.email = email;
 		this.firstName = firstName;
 		this.created = created;
@@ -59,22 +61,12 @@ public class Participant extends Entity implements Serializable {
 		this.volunteering = volunteering;
 		this.amount = amount;
 		this.paymentDt = paymentDt;
-		this.ipnResponses = ipnResponses;
 	}
 
-	@Override
-	public String getKey() {
-		return key;
+	public String getItemNumberKey() {
+		return itemNumberKey;
 	}
-
-	public String getItemNumber() {
-		return itemNumber;
-	}
-
-	public void setItemNumber(String itemNumber) {
-		this.itemNumber = itemNumber;
-	}
-
+	
 	public String getEmail() {
 		return email;
 	}
@@ -155,11 +147,11 @@ public class Participant extends Entity implements Serializable {
 		this.paymentDt = paymentDt;
 	}
 
-	public Collection<IpnResponse> getIpnResponses() {
+	public ArrayList<IpnResponse> getIpnResponses() {
 		return ipnResponses;
 	}
 
-	public void setIpnResponses(Collection<IpnResponse> ipnResponses) {
+	public void setIpnResponses(ArrayList<IpnResponse> ipnResponses) {
 		this.ipnResponses = ipnResponses;
 	}
 

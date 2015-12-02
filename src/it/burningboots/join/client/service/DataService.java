@@ -1,6 +1,7 @@
 package it.burningboots.join.client.service;
 
 import it.burningboots.join.shared.PropertyBean;
+import it.burningboots.join.shared.SystemException;
 import it.burningboots.join.shared.entity.Config;
 import it.burningboots.join.shared.entity.Participant;
 
@@ -19,11 +20,13 @@ public interface DataService extends RemoteService {
 	public PropertyBean getPropertyBean();
 	
 	//Config
-	public String findConfigValueByKey(String key);
+	public Config findConfigByKey(String key);
 	public String saveOrUpdateConfig(Config config);
 	
 	//Participants
 	public Participant findParticipantByKey(String key);
 	public List<Participant> findParticipants();
+	public Participant createParticipant() throws SystemException;
+	public String saveOrUpdateParticipant(Participant prt);
 	
 }

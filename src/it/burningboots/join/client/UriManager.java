@@ -2,6 +2,7 @@ package it.burningboots.join.client;
 
 import it.burningboots.join.client.frame.Join0Frame;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 public class UriManager {
@@ -33,6 +34,7 @@ public class UriManager {
 			UriParameters params = paramsFromUri(fullToken);
 			SimplePanel contentPanel = UiSingleton.get().getContentPanel();
 			contentPanel.clear();
+			GWT.debugger();//TODO
 			if (INDEX.equals(token)) {
 				contentPanel.add(new Join0Frame(params));
 			}

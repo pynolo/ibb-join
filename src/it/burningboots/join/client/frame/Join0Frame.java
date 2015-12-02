@@ -6,10 +6,9 @@ import it.burningboots.join.client.UriParameters;
 import it.burningboots.join.client.WizardSingleton;
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.client.service.DataServiceAsync;
+import it.burningboots.join.shared.AppConstants;
 import it.burningboots.join.shared.PropertyBean;
 import it.burningboots.join.shared.entity.Participant;
-
-import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -37,10 +36,11 @@ public class Join0Frame extends FramePanel implements IWizardPanel {
 		} else {
 			this.params = new UriParameters();
 		}
+		String itemNumberKey = this.params.getValue(AppConstants.PARAMS_ID);
 		cp = new VerticalPanel();
 		this.add(cp);
 		this.setWidth("100%");
-		loadAsyncData();
+		loadAsyncData(itemNumberKey);
 	}
 	
 	private void draw() {
@@ -56,6 +56,7 @@ public class Join0Frame extends FramePanel implements IWizardPanel {
 			UriManager.loadContent(UriManager.STEP_FULL);
 		}
 		//TITLE
+		GWT.debugger();//TODO
 		setTitle("Registration / Iscrizione");
 		
 		cp.add(new HTML("<i>What are your first and last name?</i><br/>"+
@@ -96,20 +97,28 @@ public class Join0Frame extends FramePanel implements IWizardPanel {
 	
 	//Async methods
 	
-	private void loadAsyncData() {
+	private void loadAsyncData(String itemNumberKey) {
 		GWT.debugger();
-		AsyncCallback<List<Participant>> callback = new AsyncCallback<List<Participant>>() {
+		AsyncCallback<Participant> callback = new AsyncCallback<Participant>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				UiSingleton.get().addInfo(caught.getMessage());
 			}
 			@Override
-			public void onSuccess(List<Participant> result) {
-				if (result != null) participantCount = result.size();
+			public void onSuccess(Participant result) {
+				WizardSingleton.get().setParticipantBean(result);
 				draw();
 			}
 		};
-		dataService.findParticipants(callback);
+		if (itemNumberKey != null) {
+			if (!itemNumberKey.equals("")) {
+				dataService.findParticipantByKey(itemNumberKey, callback);
+			} else {
+				dataService.createParticipant(callback);
+			}
+		} else {
+			dataService.createParticipant(callback);
+		}
 	}
 	
 }

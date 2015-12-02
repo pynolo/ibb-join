@@ -1,7 +1,7 @@
 package it.burningboots.join.server.servlet;
 
 import it.burningboots.join.server.DataBusiness;
-import it.burningboots.join.server.jdo.EntityDao;
+import it.burningboots.join.server.jdo.IpnResponseDao;
 import it.burningboots.join.server.jdo.PMF;
 import it.burningboots.join.server.jdo.ParticipantDao;
 import it.burningboots.join.shared.AppConstants;
@@ -69,8 +69,8 @@ public class IpnServlet extends HttpServlet {
 				if (pair.getName().equals("pending_reason")) pendingReason=pair.getValue();
 			}
 			try {
-				String key = DataBusiness.createCode("IpnServlet", 32);
-				IpnResponse ipnr = new IpnResponse(key, itemNumber, paymentStatus, payerEmail,
+				String idKey = DataBusiness.createCode(this.getClass().getCanonicalName(), 32);
+				IpnResponse ipnr = new IpnResponse(idKey, itemNumber, paymentStatus, payerEmail,
 						mcGross, mcCurrency, paymentDate, pendingReason, paymentType);
 				registerPayment(ipnr);
 			} catch (Exception e) {
@@ -97,13 +97,23 @@ public class IpnServlet extends HttpServlet {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
 			pm.currentTransaction().begin();
-			EntityDao.saveOrUpdate(pm, ipnr);
-			Participant prt = ParticipantDao.findByItemNumber(pm, ipnr.getItemNumber());
+			Participant prt = ParticipantDao.findByKey(pm, ipnr.getItemNumber());
 			if (prt != null) {
-				//Updating participant
+				//Partecipante identificato => gli assegna pagamento
+				ipnr.setParticipantFound(true);
+				ArrayList<IpnResponse> ipnResponseList = prt.getIpnResponses();
+				if (ipnResponseList == null) {
+					ipnResponseList = new ArrayList<IpnResponse>();
+					prt.setIpnResponses(ipnResponseList);
+				}
+				ipnResponseList.add(ipnr);
 				Double amount = Double.valueOf(ipnr.getMcGross());
 				prt.setAmount(amount);
 				prt.setPaymentDt(new Date());
+			} else {
+				//Partecipante NON identificato => marca pagamento come non assegnato
+				ipnr.setParticipantFound(false);
+				IpnResponseDao.saveOrUpdate(pm, ipnr);
 			}
 			pm.currentTransaction().commit();
 		} finally {

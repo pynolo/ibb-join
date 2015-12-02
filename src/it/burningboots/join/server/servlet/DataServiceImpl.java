@@ -1,16 +1,20 @@
 package it.burningboots.join.server.servlet;
 
 import it.burningboots.join.client.service.DataService;
+import it.burningboots.join.server.DataBusiness;
 import it.burningboots.join.server.PropertyReader;
-import it.burningboots.join.server.jdo.EntityDao;
+import it.burningboots.join.server.jdo.ConfigDao;
 import it.burningboots.join.server.jdo.PMF;
+import it.burningboots.join.server.jdo.ParticipantDao;
 import it.burningboots.join.shared.PropertyBean;
+import it.burningboots.join.shared.SystemException;
 import it.burningboots.join.shared.entity.Config;
 import it.burningboots.join.shared.entity.Participant;
 
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
+import javax.jdo.Transaction;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -44,32 +48,64 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 	
 	@Override
-	public String findConfigValueByKey(String key) {
+	public Config findConfigByKey(String nameKey) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Config config = EntityDao.findByKey(pm, key, Config.class);
-		if (config != null) return config.getVal();
-		return null;
+		Config config = ConfigDao.findByKey(pm, nameKey);
+		return config;
 	}
 
 	@Override
 	public String saveOrUpdateConfig(Config config) {
-		// TODO Auto-generated method stub
-		return null;
+		String key = null;
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+        tx.begin();
+        try {
+        	key = ConfigDao.saveOrUpdate(pm, config);
+	        tx.commit();
+	    } finally {
+	        if (tx.isActive()) {
+	            tx.rollback();
+	        }
+	    }
+		return key;
 	}
 
 	@Override
-	public Participant findParticipantByKey(String key) {
+	public Participant findParticipantByKey(String itemNumberKey) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Participant p = EntityDao.findByKey(pm, key, Participant.class);
+		Participant p = ParticipantDao.findByKey(pm, itemNumberKey);
 		return p;
 	}
 
 	@Override
 	public List<Participant> findParticipants() {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		List<Participant> pList = EntityDao.find(pm, Participant.class);
+		List<Participant> pList = ParticipantDao.find(pm);
 		return pList;
 	}
 
-	
+	@Override
+	public String saveOrUpdateParticipant(Participant prt) {
+		String key = null;
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+        tx.begin();
+        try {
+        	key = ParticipantDao.saveOrUpdate(pm, prt);
+	        tx.commit();
+	    } finally {
+	        if (tx.isActive()) {
+	            tx.rollback();
+	        }
+	    }
+		return key;
+	}
+
+	@Override
+	public Participant createParticipant() throws SystemException {
+		String itemNumberKey = DataBusiness.createCode(this.getClass().getName(), 32);
+		Participant prt = new Participant(itemNumberKey);
+		return prt;
+	}
 }

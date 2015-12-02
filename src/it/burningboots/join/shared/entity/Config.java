@@ -8,25 +8,24 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
-public class Config extends Entity implements Serializable {
+public class Config implements Serializable {
 	private static final long serialVersionUID = 2573558514344018622L;
 	
 	@PrimaryKey
-	private String key;
+	private String nameKey;
 	@Persistent
 	private String val;
 	
 	public Config() {
 	}
 	
-	public Config(String key, String value) {
-		this.key = key;
+	public Config(String nameKey, String value) {
+		this.nameKey = nameKey;
 		this.val = value;
 	}
-	
-	@Override
-	public String getKey() {
-		return key;
+
+	public String getNameKey() {
+		return nameKey;
 	}
 
 	public String getVal() {

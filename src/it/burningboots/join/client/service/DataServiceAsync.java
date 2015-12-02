@@ -16,11 +16,13 @@ public interface DataServiceAsync {
 	void getPropertyBean(AsyncCallback<PropertyBean> callback);
 
 	//Config
-	void findConfigValueByKey(String key, AsyncCallback<String> callback);
+	void findConfigByKey(String nameKey, AsyncCallback<Config> callback);
 	void saveOrUpdateConfig(Config config, AsyncCallback<String> callback);
 	
 	//Participant
-	void findParticipantByKey(String key, AsyncCallback<Participant> callback);
+	void findParticipantByKey(String itemNumberKey, AsyncCallback<Participant> callback);
 	void findParticipants(AsyncCallback<List<Participant>> callback);
-
+	void createParticipant(AsyncCallback<Participant> callback);
+	void saveOrUpdateParticipant(Participant prt, AsyncCallback<String> callback);
+	
 }
