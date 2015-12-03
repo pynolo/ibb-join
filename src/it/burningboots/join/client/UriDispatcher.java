@@ -5,7 +5,7 @@ import it.burningboots.join.client.frame.JoinCheckoutFrame;
 
 import com.google.gwt.user.client.ui.SimplePanel;
 
-public class UriManager {
+public class UriDispatcher {
 	
 	public static final String SEPARATOR_TOKEN = "!";// Â£
 	public static final String SEPARATOR_PARAMS = "/"; // /
@@ -31,7 +31,7 @@ public class UriManager {
 	public static void loadContent(String fullToken) {
 		if (fullToken != null) {
 			String token = tokenFromUri(fullToken);
-			UriParameters params = paramsFromUri(fullToken);
+			UriBuilder params = paramsFromUri(fullToken);
 			SimplePanel contentPanel = UiSingleton.get().getContentPanel();
 			contentPanel.clear();
 			if (INDEX.equals(token)) {
@@ -79,7 +79,7 @@ public class UriManager {
 		return result;
 	}
 	
-	private static UriParameters paramsFromUri(String fullToken) {
+	private static UriBuilder paramsFromUri(String fullToken) {
 		//Extract only the part after SEPARATOR_TOKEN
 		String parameters = null;
 		String[] tokenPieces = fullToken.split(SEPARATOR_TOKEN);
@@ -90,7 +90,7 @@ public class UriManager {
 		}
 		
 		//Extract parameters and put them in a map
-		UriParameters result = new UriParameters();
+		UriBuilder result = new UriBuilder();
 		String[] pieces = parameters.split(SEPARATOR_PARAMS);
 		if (pieces.length >= 1) {
 			for (String piece : pieces) {

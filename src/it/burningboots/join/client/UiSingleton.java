@@ -60,10 +60,10 @@ public class UiSingleton implements ValueChangeHandler<String> {
 		// check to see if there are any tokens passed at startup via the browser's URI
 		String token = History.getToken();
 		if (token.length() == 0) {
-			UriManager.loadContent(UriManager.INDEX);
+			UriDispatcher.loadContent(UriDispatcher.INDEX);
 		}
 		else {
-			UriManager.loadContent(token);
+			UriDispatcher.loadContent(token);
 		}
 	}
 
@@ -74,7 +74,7 @@ public class UiSingleton implements ValueChangeHandler<String> {
 	public void onValueChange(ValueChangeEvent<String> event) {
 		// This method is called whenever the application's history changes. Set
 		// the label to reflect the current history token.
-		UriManager.loadContent(event.getValue());
+		UriDispatcher.loadContent(event.getValue());
 	}
 
 

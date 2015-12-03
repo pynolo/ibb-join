@@ -26,7 +26,7 @@ public interface DataService extends RemoteService {
 	//Participants
 	public Participant findParticipantByKey(String key);
 	public List<Participant> findParticipants();
-	public Participant createParticipant() throws SystemException;
+	public Participant createTransientParticipant() throws SystemException;
 	public String saveOrUpdateParticipant(Participant prt);
 	
 }

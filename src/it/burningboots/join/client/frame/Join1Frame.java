@@ -1,8 +1,8 @@
 package it.burningboots.join.client.frame;
 
 import it.burningboots.join.client.UiSingleton;
-import it.burningboots.join.client.UriManager;
-import it.burningboots.join.client.UriParameters;
+import it.burningboots.join.client.UriDispatcher;
+import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.WizardSingleton;
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.client.service.DataServiceAsync;
@@ -22,7 +22,7 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
 	
-	private UriParameters params = null;
+	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
 	private int participantCount = 0;
 	
@@ -30,12 +30,12 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 	private TextBox lastNameText;
 	private TextBox emailText;
 	
-	public Join1Frame(UriParameters params) {
+	public Join1Frame(UriBuilder params) {
 		super();
 		if (params != null) {
 			this.params = params;
 		} else {
-			this.params = new UriParameters();
+			this.params = new UriBuilder();
 		}
 		String itemNumberKey = this.params.getValue(AppConstants.PARAMS_ID);
 		cp = new VerticalPanel();
@@ -49,11 +49,11 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 		
 		//Check if joining wizard can be active
 		if ( properties.getClosed() ) {
-			UriManager.loadContent(UriManager.STEP_CLOSED);
+			UriDispatcher.loadContent(UriDispatcher.STEP_CLOSED);
 		}
 		if ( (participantCount >= properties.getBedAvailableUntil()) &&
 				(participantCount >= properties.getTentAvailableUntil()) ) {
-			UriManager.loadContent(UriManager.STEP_FULL);
+			UriDispatcher.loadContent(UriDispatcher.STEP_FULL);
 		}
 		//TITLE
 		setTitle("Registration / Iscrizione");
@@ -63,12 +63,13 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 		firstNameText = new TextBox();
 		firstNameText.setValue(participant.getFirstName());
 		cp.add(firstNameText);
+		cp.add(new HTML("<p>&nbsp;</p>"));
+		
 		cp.add(new HTML("<i>What is your last name?</i><br />"+
 				"<b>Quale &egrave; il tuo cognome?</b>"));
 		lastNameText = new TextBox();
 		lastNameText.setValue(participant.getLastName());
 		cp.add(lastNameText);
-		
 		cp.add(new HTML("<p>&nbsp;</p>"));
 		
 		cp.add(new HTML("<i>Your email to receive information about the event</i><br/>"+
@@ -96,19 +97,21 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 		try {
 			StringValidator.validateName(firstName);
 		} catch (ValidationException e) {
-			errorMessage += e.getMessage()+"<br />";
+			errorMessage += e.getMessage();
 		}
 		String lastName = lastNameText.getValue();
 		try {
 			StringValidator.validateName(lastName);
 		} catch (ValidationException e) {
-			errorMessage += e.getMessage()+"<br />";
+			if (errorMessage.length() > 0) errorMessage += "<br />";
+			errorMessage += e.getMessage();
 		}
 		String email = emailText.getValue();
 		try {
 			StringValidator.validateEmail(email);
 		} catch (ValidationException e) {
-			errorMessage += e.getMessage()+"<br />";
+			if (errorMessage.length() > 0) errorMessage += "<br />";
+			errorMessage += e.getMessage();
 		}
 		
 		if (errorMessage.length() > 0) {
@@ -120,8 +123,9 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 			participant.setLastName(lastName);
 			participant.setEmail(email);
 			//Forward
-			//UriManager.loadContent(UriManager.STEP_JOIN_1);
-			UriManager.loadContent(UriManager.STEP_JOIN_CHECKOUT);
+			UriBuilder param = new UriBuilder();
+			param.add(AppConstants.PARAMS_ID, participant.getItemNumberKey());
+			param.triggerUri(UriDispatcher.STEP_JOIN_CHECKOUT);
 		}
 	}
 	
@@ -139,7 +143,7 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 		AsyncCallback<Participant> callback = new AsyncCallback<Participant>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				UiSingleton.get().addInfo(caught.getMessage());
+				UiSingleton.get().addError(caught);
 			}
 			@Override
 			public void onSuccess(Participant result) {
@@ -151,7 +155,7 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 		if (itemNumberKey == null) itemNumberKey = "";
 		if (itemNumberKey.equals("")) {
 			//No itemNumberKey passed => brand new participant
-			dataService.createParticipant(callback);
+			dataService.createTransientParticipant(callback);
 		} else {
 			//itemNumberKey passed => check participant in WizardSingleton and load it from DB if empty
 			Participant prt = WizardSingleton.get().getParticipantBean();

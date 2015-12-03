@@ -22,7 +22,7 @@ public interface DataServiceAsync {
 	//Participant
 	void findParticipantByKey(String itemNumberKey, AsyncCallback<Participant> callback);
 	void findParticipants(AsyncCallback<List<Participant>> callback);
-	void createParticipant(AsyncCallback<Participant> callback);
+	void createTransientParticipant(AsyncCallback<Participant> callback);
 	void saveOrUpdateParticipant(Participant prt, AsyncCallback<String> callback);
 	
 }

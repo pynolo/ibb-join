@@ -6,6 +6,7 @@ import it.burningboots.join.server.PropertyReader;
 import it.burningboots.join.server.jdo.ConfigDao;
 import it.burningboots.join.server.jdo.PMF;
 import it.burningboots.join.server.jdo.ParticipantDao;
+import it.burningboots.join.shared.AppConstants;
 import it.burningboots.join.shared.PropertyBean;
 import it.burningboots.join.shared.SystemException;
 import it.burningboots.join.shared.entity.Config;
@@ -99,8 +100,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public Participant createParticipant() throws SystemException {
-		String itemNumberKey = DataBusiness.createCode(this.getClass().getName(), 32);
+	public Participant createTransientParticipant() throws SystemException {
+		String itemNumberKey = DataBusiness.createCode(this.getClass().getName(), AppConstants.ITEM_NUMBER_LENGHT);
 		Participant prt = new Participant(itemNumberKey);
 		return prt;
 	}

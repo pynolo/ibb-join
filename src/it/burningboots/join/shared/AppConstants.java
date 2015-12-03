@@ -16,7 +16,7 @@ public class AppConstants {
 	//public static final String PAYPAL_URL= "https://www.sandbox.paypal.com/cgi-bin/webscr";//SANDBOX
 	public static final String PAYPAL_ACCOUNT = "ibb.registration@tarine.net";
 	//public static final String PAYPAL_ACCOUNT = "paolo-facilitator@tarine.net";//SANDBOX
-	public static final int CODE_LENGHT = 6;
+	public static final int ITEM_NUMBER_LENGHT = 6;
 	
 	public static final String CONFIG_MAX_TICKET_COUNT = "maxTicketCount";
 	public static final String CONFIG_MAX_FOREIGNER_TICKET_COUNT = "maxForeignTicketCount";

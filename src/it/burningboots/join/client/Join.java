@@ -38,7 +38,7 @@ public class Join implements EntryPoint {
 				if (cookieVersion == null) cookieVersion="";
 				if (!cookieVersion.equals(bean.getVersion())) {
 					CookieSingleton.get().setCookie(ClientConstants.COOKIE_VERSION, bean.getVersion());
-					UriManager.hardReload();
+					UriDispatcher.hardReload();
 				}
 				//LAUNCH APP:
 				//GWT.setUncaughtExceptionHandler(new BrowserException());

@@ -2,8 +2,8 @@ package it.burningboots.join.client.frame;
 
 import it.burningboots.join.client.ClientConstants;
 import it.burningboots.join.client.UiSingleton;
-import it.burningboots.join.client.UriManager;
-import it.burningboots.join.client.UriParameters;
+import it.burningboots.join.client.UriDispatcher;
+import it.burningboots.join.client.UriBuilder;
 import it.burningboots.join.client.WizardSingleton;
 import it.burningboots.join.client.service.DataService;
 import it.burningboots.join.client.service.DataServiceAsync;
@@ -20,18 +20,18 @@ public class JoinCheckoutFrame extends FramePanel {
 	
 	private final DataServiceAsync dataService = GWT.create(DataService.class);
 	
-	private UriParameters params = null;
+	private UriBuilder params = null;
 	private VerticalPanel cp = null; // Content panel
 	private int participantCount = 0;
 	
 	private VerticalPanel checkoutPanel = null;
 	
-	public JoinCheckoutFrame(UriParameters params) {
+	public JoinCheckoutFrame(UriBuilder params) {
 		super();
 		if (params != null) {
 			this.params = params;
 		} else {
-			this.params = new UriParameters();
+			this.params = new UriBuilder();
 		}
 		String itemNumberKey = this.params.getValue(AppConstants.PARAMS_ID);
 		cp = new VerticalPanel();
@@ -44,11 +44,11 @@ public class JoinCheckoutFrame extends FramePanel {
 		
 		//Check if joining wizard can be active
 		if ( properties.getClosed() ) {
-			UriManager.loadContent(UriManager.STEP_CLOSED);
+			UriDispatcher.loadContent(UriDispatcher.STEP_CLOSED);
 		}
 		if ( (participantCount >= properties.getBedAvailableUntil()) &&
 				(participantCount >= properties.getTentAvailableUntil()) ) {
-			UriManager.loadContent(UriManager.STEP_FULL);
+			UriDispatcher.loadContent(UriDispatcher.STEP_FULL);
 		}
 		//TITLE
 		setTitle("Confirm your registration / Conferma la registrazione");
@@ -112,7 +112,7 @@ public class JoinCheckoutFrame extends FramePanel {
 		AsyncCallback<String> callback = new AsyncCallback<String>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				UiSingleton.get().addInfo(caught.getMessage());
+				UiSingleton.get().addError(caught);
 			}
 			@Override
 			public void onSuccess(String result) {
@@ -124,6 +124,8 @@ public class JoinCheckoutFrame extends FramePanel {
 			if (prt.getItemNumberKey().equals(itemNumberKey)) {
 				dataService.saveOrUpdateParticipant(prt, callback);
 			}
+		} else {
+			UiSingleton.get().addWarning("No item number provided");
 		}
 	}
 	

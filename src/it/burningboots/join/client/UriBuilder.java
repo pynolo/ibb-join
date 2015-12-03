@@ -9,14 +9,14 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Hyperlink;
 
 
-public class UriParameters {
+public class UriBuilder {
 	
 	public static final String FORMAT_DATE_URI = "ddMMyyyy";
 	private static final String PARAM_RANDOM = "xyz";
 	
 	private Map<String,String> paramMap = new HashMap<String, String>();
 	
-	public UriParameters() {}
+	public UriBuilder() {}
 	
 	public void add(String key, String value) {
 		paramMap.put(key, value);
@@ -80,12 +80,12 @@ public class UriParameters {
 			String value = paramMap.get(key);
 			if (value != null) {
 				if (!value.equals("")) {
-					if (result.length() > 0) result += UriManager.SEPARATOR_PARAMS;
-					result += key + UriManager.SEPARATOR_VALUES + value;
+					if (result.length() > 0) result += UriDispatcher.SEPARATOR_PARAMS;
+					result += key + UriDispatcher.SEPARATOR_VALUES + value;
 				}
 			}
 		}
-		result = destinationPageIdentifier + UriManager.SEPARATOR_TOKEN + result;
+		result = destinationPageIdentifier + UriDispatcher.SEPARATOR_TOKEN + result;
 		return result;
 	}
 	
