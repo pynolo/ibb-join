@@ -43,66 +43,94 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 	
 	@Override
-	public Config findConfigByKey(String nameKey) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Config config = ConfigDao.findByKey(pm, nameKey);
-		return config;
+	public Config findConfigByKey(String nameKey) throws SystemException {
+		try {
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			Config config = ConfigDao.findByKey(pm, nameKey);
+			return config;
+		} catch (Exception e) {
+			throw new SystemException(e.getMessage(), e);
+		}
 	}
 
 	@Override
-	public String saveOrUpdateConfig(Config config) {
-		String key = null;
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-        tx.begin();
-        try {
-        	key = ConfigDao.saveOrUpdate(pm, config);
-	        tx.commit();
-	    } finally {
-	        if (tx.isActive()) {
-	            tx.rollback();
-	        }
-	    }
-		return key;
+	public String saveOrUpdateConfig(Config config) throws SystemException {
+		try {
+			String key = null;
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+	        try {
+	        	tx.begin();
+	        	key = ConfigDao.saveOrUpdate(pm, config);
+		        tx.commit();
+			} catch (Exception e) {
+				throw new SystemException(e.getMessage(), e);
+		    } finally {
+		        if (tx.isActive()) {
+		            tx.rollback();
+		        }
+		    }
+			return key;
+		} catch (Exception e) {
+			throw new SystemException(e.getMessage(), e);
+		}
 	}
 
 	@Override
-	public Participant findParticipantByKey(String itemNumberKey) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Participant p = ParticipantDao.findByKey(pm, itemNumberKey);
-		return p;
+	public Participant findParticipantByKey(String itemNumberKey) throws SystemException {
+		try {
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			Participant p = ParticipantDao.findByKey(pm, itemNumberKey);
+			return p;
+		} catch (Exception e) {
+			throw new SystemException(e.getMessage(), e);
+		}
 	}
 
 	@Override
-	public List<Participant> findParticipants() {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-		List<Participant> pList = ParticipantDao.find(pm);
-		return pList;
+	public List<Participant> findParticipants() throws SystemException {
+		try {
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			List<Participant> pList = ParticipantDao.find(pm);
+			return pList;
+		} catch (Exception e) {
+			throw new SystemException(e.getMessage(), e);
+		}
 	}
 
 	@Override
-	public String saveOrUpdateParticipant(Participant prt) {
-		String key = null;
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-        tx.begin();
-        try {
-        	prt.setArrivalTime(DataBusiness.escape(prt.getArrivalTime()));
-        	prt.setCountryName(DataBusiness.escape(prt.getCountryName()));
-        	key = ParticipantDao.saveOrUpdate(pm, prt);
-	        tx.commit();
-	    } finally {
-	        if (tx.isActive()) {
-	            tx.rollback();
-	        }
-	    }
-		return key;
+	public String saveOrUpdateParticipant(Participant prt) throws SystemException {
+		try {
+			String key = null;
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+	        try {
+	        	tx.begin();
+	        	prt.setArrivalTime(DataBusiness.escape(prt.getArrivalTime()));
+	        	prt.setCountryName(DataBusiness.escape(prt.getCountryName()));
+	        	key = ParticipantDao.saveOrUpdate(pm, prt);
+		        tx.commit();
+	        } catch (Exception e) {
+				throw new SystemException(e.getMessage(), e);
+		    } finally {
+		        if (tx.isActive()) {
+		            tx.rollback();
+		        }
+		    }
+			return key;
+		} catch (Exception e) {
+			throw new SystemException(e.getMessage(), e);
+		}
 	}
 
 	@Override
 	public Participant createTransientParticipant() throws SystemException {
-		String itemNumberKey = DataBusiness.createCode(this.getClass().getName(), AppConstants.ITEM_NUMBER_LENGHT);
-		Participant prt = new Participant(itemNumberKey);
-		return prt;
+		try {
+			String itemNumberKey = DataBusiness.createCode(this.getClass().getName(), AppConstants.ITEM_NUMBER_LENGHT);
+			Participant prt = new Participant(itemNumberKey);
+			return prt;
+		} catch (Exception e) {
+			throw new SystemException(e.getMessage(), e);
+		}
 	}
 }

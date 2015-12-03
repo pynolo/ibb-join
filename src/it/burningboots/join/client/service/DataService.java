@@ -20,13 +20,13 @@ public interface DataService extends RemoteService {
 	public PropertyBean getPropertyBean();
 	
 	//Config
-	public Config findConfigByKey(String key);
-	public String saveOrUpdateConfig(Config config);
+	public Config findConfigByKey(String key) throws SystemException;
+	public String saveOrUpdateConfig(Config config) throws SystemException;
 	
 	//Participants
-	public Participant findParticipantByKey(String key);
-	public List<Participant> findParticipants();
+	public Participant findParticipantByKey(String key) throws SystemException;
+	public List<Participant> findParticipants() throws SystemException;
 	public Participant createTransientParticipant() throws SystemException;
-	public String saveOrUpdateParticipant(Participant prt);
+	public String saveOrUpdateParticipant(Participant prt) throws SystemException;
 	
 }
