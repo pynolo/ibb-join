@@ -1,5 +1,7 @@
 package it.burningboots.join.shared.entity;
 
+import it.burningboots.join.shared.AppConstants;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,6 +37,8 @@ public class Participant implements Serializable {
 	private Double amount = null;
 	@Persistent
 	private Date paymentDt = null;
+	@Persistent
+	private Integer accommodationType = AppConstants.ACCOMMODATION_DEFAULT;
 	
 	@Persistent(defaultFetchGroup = "true")
 	private ArrayList<IpnResponse> ipnResponses;
@@ -50,7 +54,8 @@ public class Participant implements Serializable {
 	public Participant(String itemNumberKey, String email,
 			String firstName, String lastName, Date created,
 			String arrivalTime, String countryName, String foodRestrictions,
-			String volunteering, Double amount, Date paymentDt) {
+			String volunteering, Double amount, Date paymentDt,
+			Integer accommodationType) {
 		this.itemNumberKey = itemNumberKey;
 		this.email = email;
 		this.firstName = firstName;
@@ -61,6 +66,7 @@ public class Participant implements Serializable {
 		this.volunteering = volunteering;
 		this.amount = amount;
 		this.paymentDt = paymentDt;
+		this.accommodationType = accommodationType;
 	}
 
 	public String getItemNumberKey() {
@@ -145,6 +151,14 @@ public class Participant implements Serializable {
 
 	public void setPaymentDt(Date paymentDt) {
 		this.paymentDt = paymentDt;
+	}
+
+	public Integer getAccommodationType() {
+		return accommodationType;
+	}
+
+	public void setAccommodationType(Integer accommodationType) {
+		this.accommodationType = accommodationType;
 	}
 
 	public ArrayList<IpnResponse> getIpnResponses() {

@@ -28,7 +28,7 @@ public class UiSingleton implements ValueChangeHandler<String> {
 	
 	public void drawUi() {
 		RootPanel.get("header").clear();
-		RootPanel.get("content").clear();
+		RootPanel.get("content-area").clear();
 		RootPanel.get("message-panel").clear();
 		initUi();
 	}
@@ -38,10 +38,9 @@ public class UiSingleton implements ValueChangeHandler<String> {
 		headerPanel = new SimplePanel();
 		RootPanel.get("header").add(headerPanel);
 		
-		// bottomPanel items
 		contentPanel = new SimplePanel();
-		contentPanel.setWidth("100%");
-		RootPanel.get("content").add(contentPanel);
+		contentPanel.setStyleName("content");
+		RootPanel.get("content-area").add(contentPanel);
 		
 		// message panel
 		messagePanel = new MessagePanel();

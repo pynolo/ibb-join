@@ -15,8 +15,10 @@ public class PropertyReader {
 	public static final String PROPERTY_CLOSED = "closed";
 	public static final String PROPERTY_BED_FROM = "bed_available_from";
 	public static final String PROPERTY_BED_UNTIL = "bed_available_until";
+	public static final String PROPERTY_BED_PRICE = "bed_price";
 	public static final String PROPERTY_TENT_FROM = "tent_available_from";
 	public static final String PROPERTY_TENT_UNTIL = "tent_available_until";
+	public static final String PROPERTY_TENT_PRICE = "tent_price";
 	
 	private static Logger LOG = Logger.getLogger(PropertyReader.class);
 

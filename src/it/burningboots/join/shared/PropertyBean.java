@@ -9,8 +9,10 @@ public class PropertyBean implements Serializable {
 	private boolean closed = true;
 	private int bedAvailableFrom = -1;
 	private int bedAvailableUntil = -1;
+	private double bedPrice = -1D;
 	private int tentAvailableFrom = -1;
 	private int tentAvailableUntil = -1;
+	private double tentPrice = -1D;
 	
 	public PropertyBean() {
 	}
@@ -50,6 +52,18 @@ public class PropertyBean implements Serializable {
 	}
 	public void setTentAvailableUntil(String tentAvailableUntil) {
 		this.tentAvailableUntil = Integer.parseInt(tentAvailableUntil);
+	}
+	public double getBedPrice() {
+		return bedPrice;
+	}
+	public void setBedPrice(String bedPrice) {
+		this.bedPrice = Double.parseDouble(bedPrice);
+	}
+	public double getTentPrice() {
+		return tentPrice;
+	}
+	public void setTentPrice(String tentPrice) {
+		this.tentPrice =  Double.parseDouble(tentPrice);
 	}
 	
 }

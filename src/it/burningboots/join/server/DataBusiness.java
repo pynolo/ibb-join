@@ -9,6 +9,14 @@ import java.util.Date;
 
 public class DataBusiness {
 
+	public static String escape(String html) {
+		if (html == null) {
+			return null;
+		}
+		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+				.replaceAll(">", "&gt;");
+	}
+	
 	public static String createCode(String seed, int size) throws SystemException {
 		if (seed==null) seed="";
 		seed += new Date().getTime();

@@ -1,8 +1,8 @@
 package it.burningboots.join.client;
 
-import it.burningboots.join.client.frame.Join0Frame;
+import it.burningboots.join.client.frame.Join1Frame;
+import it.burningboots.join.client.frame.JoinCheckoutFrame;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 public class UriManager {
@@ -15,7 +15,7 @@ public class UriManager {
 	public static final String STEP_JOIN_1 = "join1";
 	public static final String STEP_JOIN_2 = "join2";
 	public static final String STEP_JOIN_3 = "join3";
-	public static final String STEP_CHECKOUT = "checkout";
+	public static final String STEP_JOIN_CHECKOUT = "checkout";
 	public static final String STEP_FULL = "full";
 	public static final String STEP_CLOSED = "closed";
 	public static final String STEP_THANK_YOU = "thankyou";
@@ -34,12 +34,11 @@ public class UriManager {
 			UriParameters params = paramsFromUri(fullToken);
 			SimplePanel contentPanel = UiSingleton.get().getContentPanel();
 			contentPanel.clear();
-			GWT.debugger();//TODO
 			if (INDEX.equals(token)) {
-				contentPanel.add(new Join0Frame(params));
+				contentPanel.add(new Join1Frame(params));
 			}
 			if (STEP_JOIN_1.equals(token)) {
-				//contentPanel.add(new AbbonamentiQuickSearchFrame(params));
+				contentPanel.add(new Join1Frame(params));
 			}
 			if (STEP_JOIN_2.equals(token)) {
 				//contentPanel.add(new AnagraficheQuickSearchFrame(params));
@@ -47,8 +46,8 @@ public class UriManager {
 			if (STEP_JOIN_3.equals(token)) {
 				//contentPanel.add(new DataEntryQuickFrame());
 			}
-			if (STEP_CHECKOUT.equals(token)) {
-				//contentPanel.add(new AnagraficaFrame(params));
+			if (STEP_JOIN_CHECKOUT.equals(token)) {
+				contentPanel.add(new JoinCheckoutFrame(params));
 			}
 			if (STEP_FULL.equals(token)) {
 				//contentPanel.add(new AnagraficheFindFrame(params));

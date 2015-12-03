@@ -1,10 +1,15 @@
 package it.burningboots.join.shared;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 
 public class AppConstants {
 
 	public static final String BASE_URL= "http://ibb.tarine.net";
+	public static final String IPN_URL= BASE_URL+"/ipn";
+	public static final String THANKYOU_URL= BASE_URL+"/thankyou.jsp";
 	public static final String EVENT_URL= "http://www.italianburningboots.org";
 	public static final String EVENT_EMAIL= "registration@italianburningboots.org";
 	public static final String PAYPAL_URL = "https://www.paypal.com/cgi-bin/webscr";
@@ -28,9 +33,15 @@ public class AppConstants {
 	// PARAMS
 	public static final String PARAMS_ID = "id";
 	
-	
-	//PARAM VALUES
-	public static final String VALUE_WIZARD_REPLACE = "replace";
+	// VALUES
+	//TIPI SPEDIZIONE
+	public static final Integer ACCOMMODATION_BED = 1;
+	public static final Integer ACCOMMODATION_TENT = 2;
+	public static final Map<Integer, String> ACCOMMODATION_DESC = new HashMap<Integer, String>();
+	static {
+		ACCOMMODATION_DESC.put(ACCOMMODATION_BED, "Hut / Rifugio");
+		ACCOMMODATION_DESC.put(ACCOMMODATION_TENT, "Tent / Tenda");};
+	public static final Integer ACCOMMODATION_DEFAULT = ACCOMMODATION_BED;
 	
 	// FORMATS
 	public static final String PATTERN_TIMESTAMP = "dd/MM/yyyy HH:mm:ss z";//"dd/MM/yyyy HH:mm";

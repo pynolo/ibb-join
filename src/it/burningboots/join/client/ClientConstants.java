@@ -28,9 +28,9 @@ public class ClientConstants {
 	public static final String ICON_LOADING_SMALL = "<img src='img/ajax-loader-small.gif' style='vertical-align:middle;border:none;' title='In corso...' />";
 	public static final Integer ICON_LOADING_WIDTH = 121;
 	public static final Integer ICON_LOADING_HEIGHT = 23;
-	public static final String MSG_ICON_INFO = "<img src='img/icon16/dialog-information.png' style='vertical-align:middle' />";
-	public static final String MSG_ICON_WARN = "<img src='img/icon16/dialog-warning.png' style='vertical-align:middle' />";
-	public static final String MSG_ICON_ERROR = "<img src='img/icon16/dialog-error.png' style='vertical-align:middle' />";
+	public static final String MSG_ICON_INFO = "<img src='img/dialog-information.png' style='vertical-align:middle' />";
+	public static final String MSG_ICON_WARN = "<img src='img/dialog-warning.png' style='vertical-align:middle' />";
+	public static final String MSG_ICON_ERROR = "<img src='img/dialog-error.png' style='vertical-align:middle' />";
 	
 	//COOKIE
 	public static final String COOKIE_USERNAME = "rgrw4c4gidlds52gfd3";

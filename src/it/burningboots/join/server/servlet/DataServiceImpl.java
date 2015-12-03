@@ -25,14 +25,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class DataServiceImpl extends RemoteServiceServlet implements
 		DataService {
 
-	private String escapeHtml(String html) {
-		if (html == null) {
-			return null;
-		}
-		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
-				.replaceAll(">", "&gt;");
-	}
-
 	@Override
 	public PropertyBean getPropertyBean() {
 		PropertyBean bean = new PropertyBean();
@@ -42,8 +34,10 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		if (closedString.equals("true")) bean.setClosed(true);
 		bean.setBedAvailableFrom(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_FROM));
 		bean.setBedAvailableUntil(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_UNTIL));
+		bean.setBedPrice(PropertyReader.readProperty(PropertyReader.PROPERTY_BED_PRICE));
 		bean.setTentAvailableFrom(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_FROM));
 		bean.setTentAvailableUntil(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_UNTIL));
+		bean.setTentPrice(PropertyReader.readProperty(PropertyReader.PROPERTY_TENT_PRICE));
 		return bean;
 	}
 	
@@ -92,6 +86,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		Transaction tx = pm.currentTransaction();
         tx.begin();
         try {
+        	prt.setArrivalTime(DataBusiness.escape(prt.getArrivalTime()));
+        	prt.setCountryName(DataBusiness.escape(prt.getCountryName()));
         	key = ParticipantDao.saveOrUpdate(pm, prt);
 	        tx.commit();
 	    } finally {

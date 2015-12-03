@@ -9,13 +9,27 @@
 	width: 100%; 
 	margin: 0 auto;
 }
-section {
-	margin: 0px 0px;
-	font-family: 'Andika',tahoma,'Lucida Sans',sans;
-}
 .section-content-wrapper {
     padding: 0px 0px;
 }
+#content-area {
+	/*width: 100%;
+	text-align: center;*/
+	margin: 0px 0px;
+	padding: 0px 0px;
+	font-family: 'Andika',tahoma,'Lucida Sans',sans;
+}
+#message-panel {
+	position: fixed ; /* absolute: in page - fixed: in browser window */
+	width: 100%;
+	bottom: 0px;
+	text-align: center; 
+	background-image:url('img/white_bg.png');
+	padding: 0px;
+	border-top: thin solid #DDDDDD;
+}
+
+
 h1 {
 	font-family: 'Averia',tahoma,'Lucida Sans',sans;
 	font-size: 2.2em;
@@ -41,6 +55,6 @@ ul.list-icons {
 .text-warning {
 	color: orange;
 }
-.text-warning {
+.text-error {
 	color: red;
 }

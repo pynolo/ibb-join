@@ -29,7 +29,6 @@ public class IpnResponse implements Serializable {
 	private String pendingReason;
 	@Persistent
 	private String paymentType;
-	
 	@Persistent
 	private boolean participantFound = false;
 	

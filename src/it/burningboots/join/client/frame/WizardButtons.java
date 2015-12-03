@@ -4,6 +4,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 public class WizardButtons extends FlowPanel {
@@ -22,12 +23,13 @@ public class WizardButtons extends FlowPanel {
 	}
 	
 	private void draw() {
+		this.add(new HTML("<p>&nbsp;</p>"));
 		this.setStyleName("row");
 		//PREV
 		SimplePanel leftPanel = new SimplePanel();
 		leftPanel.setStyleName("col-xs-2");
 		prevButton = new Button();
-		prevButton.setText("&nbsp;<i class='glyphicon glyphicon-chevron-left'></i>"+
+		prevButton.setHTML("&nbsp;<i class='glyphicon glyphicon-chevron-left'></i>"+
 				"<i class='glyphicon glyphicon-chevron-left'></i> Prev");
 		prevButton.setEnabled(prevEnabled);
 		prevButton.setStyleName("btn btn-primary");
@@ -48,7 +50,7 @@ public class WizardButtons extends FlowPanel {
 		SimplePanel rightPanel = new SimplePanel();
 		rightPanel.setStyleName("col-xs-2");
 		nextButton = new Button();
-		nextButton.setText("Next <i class='glyphicon glyphicon-chevron-right'></i>"+
+		nextButton.setHTML("Next <i class='glyphicon glyphicon-chevron-right'></i>"+
 		"<i class='glyphicon glyphicon-chevron-right'></i>&nbsp;");
 		nextButton.setEnabled(nextEnabled);
 		nextButton.setStyleName("btn btn-primary");
