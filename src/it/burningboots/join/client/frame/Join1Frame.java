@@ -40,7 +40,6 @@ public class Join1Frame extends FramePanel implements IWizardPanel {
 		String itemNumberKey = this.params.getValue(AppConstants.PARAMS_ID);
 		cp = new VerticalPanel();
 		this.add(cp);
-		this.setWidth("100%");
 		loadAsyncData(itemNumberKey);
 	}
 	

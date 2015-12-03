@@ -33,9 +33,6 @@ public class ClientConstants {
 	public static final String MSG_ICON_ERROR = "<img src='img/dialog-error.png' style='vertical-align:middle' />";
 	
 	//COOKIE
-	public static final String COOKIE_USERNAME = "rgrw4c4gidlds52gfd3";
-	public static final String COOKIE_PASSWORD = "854njsc62odhg89gj3q";
 	public static final String COOKIE_VERSION = "appVersion";
-	public static final String COOKIE_LAST_LOGIN = "lastLogin";
 	
 }

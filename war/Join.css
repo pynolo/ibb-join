@@ -5,18 +5,19 @@
 @font-face {font-family: 'Averia'; font-weight: normal; font-style: normal; src: url('../fonts/averia/Averia-Regular.ttf') format('truetype');}
 @font-face {font-family: 'Andika'; font-weight: normal; font-style: normal; src: url('../fonts/andika/AndBasR.ttf') format('truetype');}
 
+#header {
+	margin: 0 auto;
+	text-align: center;
+}
 #wrap {
 	width: 100%; 
-	margin: 0 auto;
-}
-.section-content-wrapper {
-    padding: 0px 0px;
+	text-align: center;
 }
 #content-area {
-	/*width: 100%;
-	text-align: center;*/
-	margin: 0px 0px;
+	display: inline-block;
+	border: 0px;
 	padding: 0px 0px;
+	text-align: left;
 	font-family: 'Andika',tahoma,'Lucida Sans',sans;
 }
 #message-panel {

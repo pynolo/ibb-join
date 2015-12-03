@@ -36,7 +36,6 @@ public class JoinCheckoutFrame extends FramePanel {
 		String itemNumberKey = this.params.getValue(AppConstants.PARAMS_ID);
 		cp = new VerticalPanel();
 		this.add(cp);
-		this.setWidth("100%");
 		saveOrUpdateAsyncData(itemNumberKey);
 	}
 	
